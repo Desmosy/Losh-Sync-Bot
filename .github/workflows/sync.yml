@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 14 * * *' # Runs every day at 8 AM Texas time (14:00 UTC)
     - cron: '0 22 * * *'  
-  workflow_dispatch: # Allows you to run it manually for testing
+  workflow_dispatch: 
 
 jobs:
   build:
