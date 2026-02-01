@@ -3,12 +3,10 @@ import requests
 from imap_tools import MailBox, AND
 from datetime import datetime
 
-# ================= SECRETS (Loaded from GitHub) =================
 GMAIL_EMAIL = os.environ.get('GMAIL_EMAIL')
 GMAIL_APP_PASSWORD = os.environ.get('GMAIL_APP_PASSWORD')
 NOTION_TOKEN = os.environ.get('NOTION_TOKEN')
 DATABASE_ID = os.environ.get('DATABASE_ID')
-# ===============================================================
 
 def add_to_notion(subject, date, link, full_text):
     url = "https://api.notion.com/v1/pages"
@@ -33,7 +31,6 @@ def add_to_notion(subject, date, link, full_text):
     res = requests.post(url, headers=headers, json=payload)
     return res.status_code == 200
 
-# MAIN ENGINE (Checks for Fw: emails from the last 24 hours)
 with MailBox('imap.gmail.com').login(GMAIL_EMAIL, GMAIL_APP_PASSWORD) as mailbox:
     for msg in mailbox.fetch(AND(subject='Fw:'), reverse=True, limit=5):
         if "jlosh@uta.edu" in msg.text.lower():
